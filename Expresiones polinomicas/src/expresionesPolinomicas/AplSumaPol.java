@@ -37,14 +37,14 @@ public class AplSumaPol
 		
 		while(itP1 != null)
 		{
-			suma.insertaOrdenado(new Termino(itP1.Info.base, itP1.Info.potencia));
+			suma.InsertaOrdenado(new Termino(itP1.Info.base, itP1.Info.potencia));
 			itP1 = itP1.getSig();
 		}
 		
 		while(itP2 != null)
 		{
 			if (!buscarTermino(suma,itP2.Info))
-				suma.insertaOrdenado(itP2.Info);
+				suma.InsertaOrdenado(itP2.Info);
 			itP2 = itP2.getSig();
 		}
 		
@@ -52,10 +52,13 @@ public class AplSumaPol
 		while(itSuma != null)
 		{
 			Termino termino = itSuma.Info;
-			if(termino.base>0)
-				System.out.print("+"+termino.base+"X^"+termino.potencia);
-			else
-				System.out.print(termino.base+"X^"+termino.potencia);
+			if(termino.base != 0)
+			{
+				if(termino.base>0)
+					System.out.print("+"+termino.base+"X^"+termino.potencia);
+				else
+					System.out.print(termino.base+"X^"+termino.potencia);
+			}
 			itSuma=itSuma.getSig();
 		}
 	}
