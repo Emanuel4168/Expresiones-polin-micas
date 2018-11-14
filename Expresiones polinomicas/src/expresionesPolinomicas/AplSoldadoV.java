@@ -12,6 +12,9 @@ public class AplSoldadoV {
 			this.edad=edad;
 		}
 		
+		public String toString() {
+			return Rutinas.PonCeros(this.nSoldado, 5);
+		}
 		
 	}
 	
@@ -21,28 +24,26 @@ public class AplSoldadoV {
 		
 		llenarLista(soldados);
 		imprimirLista(soldados);
-		int soldadoSalvado,totalSoldados,soldadoAnterior=0,suma=0,cont = 0;
+		int soldadoSalvado,soldadoAnterior=1;
+		byte i;
+		Nodo<Soldado> it  = soldados.getFrente();
 		
 		while(soldados.Length() > 1)
 		{
-			totalSoldados = soldados.Length();
-			soldadoSalvado = Rutinas.nextInt(1,10) ;
-			System.out.println("Selección: "+soldadoSalvado);
-			if(totalSoldados >= soldadoSalvado+soldadoAnterior)
+			soldadoSalvado = Rutinas.nextInt(1,10);
+		    System.out.println("Selesción:  "+soldadoSalvado);
+			for(i =1; i<soldadoSalvado; i++ )
 			{
-				suma = soldadoSalvado + soldadoAnterior;
-				soldados.Retira(suma);
+				it = it.getSig();
+				if(it == null)
+					it= soldados.getFrente();
 			}
-			else
-			{
-				suma = (soldadoSalvado % totalSoldados == 0)? totalSoldados:soldadoSalvado % totalSoldados;
-				soldados.Retira(suma + soldadoAnterior);
-			}
-			System.out.println("Soldado "+soldados.Dr.nSoldado+" salvado");
-			soldadoAnterior = suma;
-			cont ++;
+			soldados.Retira(it.Info);
+			System.out.println("Soldado: "+soldados.Dr.nSoldado+" Salvado");
+			System.out.println("Soldados: "+soldados.Length());
+			soldadoAnterior = i;
 		}
-		
+
 		System.out.println("El soldado a realizar la misión es el soldado número: "+soldados.getFrente().Info.nSoldado);
 		
 	}
@@ -73,4 +74,36 @@ public class AplSoldadoV {
 			it = it.getSig();
 		}
 	}
+	
+	
+	
+	
+/*
+ * totalSoldados = soldados.Length();
+			soldadoSalvado = Rutinas.nextInt(1,10) ;
+			System.out.println("Soldado anterior: "+soldadoAnterior);
+			if(soldadoSalvado%nLargo==0)
+				continue;
+			System.out.println("Selección: "+soldadoSalvado);
+			if(soldadoSalvado%totalSoldados==0)
+			{
+				System.out.println("1");
+				soldados.Retira(soldadoAnterior-1);
+				soldadoAnterior -= 1;
+				System.out.println("Soldado "+soldados.Dr.nSoldado+" salvado");
+				continue;
+			}
+			if(nLargo > soldadoSalvado)
+			{System.out.println("2");
+				soldados.Retira(soldadoSalvado+soldadoAnterior-1);
+				soldadoAnterior = soldadoSalvado;
+				System.out.println("Soldado "+soldados.Dr.nSoldado+" salvado");
+				continue;
+			}
+			soldados.Retira(soldadoSalvado%nLargo);
+			soldadoAnterior= soldadoSalvado%nLargo;
+			System.out.println("Soldado "+soldados.Dr.nSoldado+" salvado");
+			nLargo=totalSoldados-soldadoAnterior;
+			System.out.println("3");
+ * */
 }
